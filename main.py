@@ -60,15 +60,14 @@ if __name__ == '__main__':
         ns.save_to_json(articles)
         #ns.filter_json()
 
-        # print(fs.hist_data())
-        # print(fs.hist_data2())
+        #print(fs.hist_data())
+        #print(fs.hist_data2())
 
         #TODO: See FinScraper class, method scraper
-        #print(fs.scraper())
-
-        # Alternative until the scraper is done
+        print(fs.scraper())
 
         stock = yf.Ticker(ticker)
+        #print(stock.history(period='1d', interval='1m'))
         #current_price = stock.history(period='1d')['Close'][0]
         #print(current_price)
 

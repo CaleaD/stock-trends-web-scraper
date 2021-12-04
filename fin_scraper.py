@@ -79,14 +79,38 @@ class FinScraper:
         '''
         # df = pd.read_html(url)
 
-        print('Starting scraping...')
+        url = f"https://www.google.com/finance/quote/{self.ticker}:NASDAQ"
         #url = f"http://finance.yahoo.com/quote/{self.ticker}/key-statistics?p={self.ticker}"
-        url = f"https://finance.yahoo.com/quote/{self.ticker}?p={self.ticker}"
+        #url = f"https://finance.yahoo.com/quote/{self.ticker}?p={self.ticker}"
 
         resp = requests.get(url, headers=self.headers, timeout=4).text
         sp = BeautifulSoup(resp, 'html.parser')
         # TODO: (1) Complete scraper for one stock
-        #  --> TODO: From resp body parse tags with information related to : Close, Open, Low, High, Volume
+        #  --> TODO: Include exception for url not found (due to invalid ticker, now we'll use NASDAQ).
+        #  --> TODO: Live price change?
+
+        title = sp.title.text
+        result = sp.findAll('title')
+
+        lst = []
+
+        # Live update of price
+        # for _ in range(100):
+        #     html = requests.get(f'https://www.google.com/search?q={self.ticker}+stock', headers=self.headers)
+        #     soup = BeautifulSoup(html.text, 'lxml')
+        #
+        #     print(soup.find('span',{'class':'IsqQVc NprOob wT3VGc'}).text)
+        #     time.sleep(20)
+
+        current_price = sp.find('div',{'class':'YMlKec fxKbKc'}).text
+        lst.append(current_price)
+
+        percentage = sp.find('div',{'class':'JwB6zf'}).text
+        lst.append(percentage)
+
+        table_values = sp.findAll('div',{'class':'P6K39c'})
+
+        for val in table_values:
+            lst.append(val.text.strip())
         # TODO: (2) Complete scraper for more stocks using tickers
-        print('Scraping finished!')
-        return resp
+        return lst
