@@ -73,13 +73,13 @@ class FinScraper:
         df = pd.read_csv(hist_url)
         return df
 
-    def scraper(self):
+    def scraper(self, ticker):
         '''
         :return: Dataframe with market data for a specific stock
         '''
         # df = pd.read_html(url)
 
-        url = f"https://www.google.com/finance/quote/{self.ticker}:NASDAQ"
+        url = f"https://www.google.com/finance/quote/{ticker}:NASDAQ"
         #url = f"http://finance.yahoo.com/quote/{self.ticker}/key-statistics?p={self.ticker}"
         #url = f"https://finance.yahoo.com/quote/{self.ticker}?p={self.ticker}"
 
@@ -93,6 +93,7 @@ class FinScraper:
         result = sp.findAll('title')
 
         lst = []
+        lst.append(self.ticker)
 
         # Live update of price
         # for _ in range(100):
@@ -112,5 +113,11 @@ class FinScraper:
 
         for val in table_values:
             lst.append(val.text.strip())
-        # TODO: (2) Complete scraper for more stocks using tickers
         return lst
+
+    def scraper_lst(self,lst):
+        stocks = []
+        for ticker in lst:
+            stock_values = self.scraper(ticker)
+            stocks.append(stock_values)
+        return stocks

@@ -42,7 +42,7 @@ def plot_price_day(ticker, stock):
 
 if __name__ == '__main__':
     try:
-        ticker = "AAPL"
+        ticker = "SBUX"
 
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15',
@@ -63,8 +63,10 @@ if __name__ == '__main__':
         #print(fs.hist_data())
         #print(fs.hist_data2())
 
+        stocks = ["AAPL","SBUX","MSFT"]
         #TODO: See FinScraper class, method scraper
-        print(fs.scraper())
+        print(fs.scraper(ticker))
+        print(fs.scraper_lst(stocks))
 
         stock = yf.Ticker(ticker)
         #print(stock.history(period='1d', interval='1m'))
