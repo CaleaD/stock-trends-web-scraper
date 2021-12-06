@@ -7,6 +7,29 @@ import urllib
 import yfinance as yf
 import matplotlib.pyplot as plt
 
+
+def plot_multiple(tickers):
+    '''
+    Plots multiple stocks for today.
+    :param tickers: a list of all stock symbols to plot
+    :return:
+    '''
+    plt.figure(figsize=(16, 8))
+    for symb in tickers:
+        stock = yf.Ticker(symb)
+        stock_dict = stock.history(period='5y', interval='1mo')
+        plt.plot(stock_dict['Close'].bfill(), label=f'{symb}')
+    plt.title(f"Market Prices Comparison - 5 Years", fontsize=20)
+    plt.xlabel('Time')
+    plt.ylabel('Price')
+    plt.grid()
+    plt.legend()
+    plt.savefig(f'Comparison_prices5y.png')
+    plt.show()
+
+
+
+
 def plot_price_range(ticker, stock, range):
     '''
     :param ticker: for format use
@@ -17,10 +40,11 @@ def plot_price_range(ticker, stock, range):
     stock_dict = stock.history(period=range)
     print(stock_dict['Close'].head())
     plt.figure(figsize=(16, 8))
-    plt.plot(stock_dict['Close'], label='Close Price history')
+    plt.plot(stock_dict['Close'], label='Close Price history', color="green")
     plt.title(f"{ticker} Market Prices",fontsize=20)
     plt.xlabel('Date')
     plt.ylabel('Price')
+    plt.grid()
     plt.savefig(f'{ticker}_{range}_prices.png')
     plt.show()
 
@@ -33,10 +57,11 @@ def plot_price_day(ticker, stock):
     stock_dict = stock.history(period='1d',interval='1m')
     print(stock_dict['Close'].head())
     plt.figure(figsize=(16, 8))
-    plt.plot(stock_dict['Close'], label='Close Price history')
+    plt.plot(stock_dict['Close'], label='Close Price history', color="green")
     plt.title(f"{ticker} Market Prices - Date : {datetime.date.today()}",fontsize=20)
-    plt.xlabel('Date')
+    plt.xlabel('Time')
     plt.ylabel('Price')
+    plt.grid()
     plt.savefig(f'{ticker}_{datetime.date.today()}_prices.png')
     plt.show()
 
@@ -85,7 +110,6 @@ if __name__ == '__main__':
         #ns.filter_json()
 
         #FINANCIAL DATA
-
         print('---FIN SCRAPER---')
         #TODO: See FinScraper class, method scraper
 
@@ -95,6 +119,8 @@ if __name__ == '__main__':
         print("FILTERED DATA:",filtered)
         if isinstance(filtered,list):
             print(scraper_lst(filtered))
+            print('Generating plots...\n')
+            plot_multiple(filtered)
         else:
             print(FinScraper(filtered).scraper())
             stock = yf.Ticker(filtered) # for plotting
@@ -109,12 +135,10 @@ if __name__ == '__main__':
             print(data)
             data.to_csv(f'hist_{filtered}.csv', index = None, header=True)
 
-
         #YFinance lib + plot testing
         #print(stock.history(period='1d', interval='1m'))
         #current_price = stock.history(period='1d')['Close'][0]
         #print(current_price)
-        print('-----------------')
 
     except urllib.error.HTTPError:
         print("HTTP Error 404")
