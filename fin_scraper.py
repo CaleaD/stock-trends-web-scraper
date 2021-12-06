@@ -15,13 +15,9 @@ class FinScraper:
         'DNT': '1',  # Do Not Track Request Header
         'Connection': 'close'
     }
-    __tickers = ''
 
     def __init__(self, ticker):
         self.ticker = ticker
-
-    def __int__(self, tickers={}):
-        self.__tickers = tickers
 
     def set_tickers(self,tickers):
         self.__tickers = tickers
@@ -73,13 +69,13 @@ class FinScraper:
         df = pd.read_csv(hist_url)
         return df
 
-    def scraper(self, ticker):
+    def scraper(self):
         '''
-        :return: Dataframe with market data for a specific stock
+        :return: List with market data for a specific stock
         '''
         # df = pd.read_html(url)
 
-        url = f"https://www.google.com/finance/quote/{ticker}:NASDAQ"
+        url = f"https://www.google.com/finance/quote/{self.ticker}:NASDAQ"
         #url = f"http://finance.yahoo.com/quote/{self.ticker}/key-statistics?p={self.ticker}"
         #url = f"https://finance.yahoo.com/quote/{self.ticker}?p={self.ticker}"
 
@@ -114,10 +110,3 @@ class FinScraper:
         for val in table_values:
             lst.append(val.text.strip())
         return lst
-
-    def scraper_lst(self,lst):
-        stocks = []
-        for ticker in lst:
-            stock_values = self.scraper(ticker)
-            stocks.append(stock_values)
-        return stocks

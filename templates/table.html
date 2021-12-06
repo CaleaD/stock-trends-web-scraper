@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <!--Forecord, MetricShare, DataWizard, StakeMetrics-->
+    <title>MetricShare - Data Collector</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/style/table.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="navbar">
+        <!--<img src="assets/logo.png" alt="logo" />-->
+        <h1>MetricShare</h1>
+        <ul>
+          <li><a href="../home.html">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="title">
+        <h1>All <span>S&P500</span> Stocks</h1>
+    </div>
+    <div class="main">
+        <table class="center">
+          <thead>
+            <tr>
+              <th>Stock Name</th>
+              <th>Ticker</th>
+              <th>Close Price</th>
+              <th>High</th>
+              <th>Low</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Microsoft</td>
+              <td>MSFT</td>
+              <td>332,66 USD</td>
+              <td>- USD</td>
+              <td>- USD</td>
+            </tr>
+            <tr>
+                <td>Gamestop</td>
+                <td>GME</td>
+                <td>225,76 USD</td>
+                <td>- USD</td>
+                <td>- USD</td>
+            </tr>
+            <tr>
+                <td>Starbucks</td>
+                <td>GME</td>
+                <td>110,58 USD</td>
+                <td>- USD</td>
+                <td>- USD</td>
+            </tr>
+            <tr>
+                <td>AMC Entertainment Holdings Inc</td>
+                <td>AMC</td>
+                <td>41,96 USD</td>
+                <td>- USD</td>
+                <td>- USD</td>
+            </tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+    <div class="buttons">
+      <ul>
+        <li><button type="submit">Download</button></li>
+        <li>
+          <form action="../home.html">
+            <button type="submit">Search Again</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -40,21 +40,28 @@ def plot_price_day(ticker, stock):
     plt.savefig(f'{ticker}_{datetime.date.today()}_prices.png')
     plt.show()
 
+def scraper_lst(tickers):
+    '''
+    :return: Nested list with market data for multiple stocks
+    '''
+    stocks = []
+    for ticker in tickers:
+        scr = FinScraper(ticker)
+        stock_values = scr.scraper()
+        stocks.append(stock_values)
+        del scr
+    return stocks
+
 if __name__ == '__main__':
     try:
-        ticker = "SBUX"
-
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'DNT': '1',  # Do Not Track Request Header
-            'Connection': 'close'
-        }
+        ticker = "AAPL"
+        tickers = ["AAPL","SBUX","MSFT"]
 
         ns = NewsScraper(ticker)
         fs = FinScraper(ticker)
 
+
+        #NEWS DATA
         articles = ns.scraper()
         print(articles)
         ns.save_to_json(articles)
@@ -63,11 +70,13 @@ if __name__ == '__main__':
         #print(fs.hist_data())
         #print(fs.hist_data2())
 
-        stocks = ["AAPL","SBUX","MSFT"]
+        #FINANCIAL DATA
         #TODO: See FinScraper class, method scraper
-        print(fs.scraper(ticker))
-        print(fs.scraper_lst(stocks))
+        print(fs.scraper())
+        print(scraper_lst(tickers))
 
+
+        #YFinance lib + plot testing
         stock = yf.Ticker(ticker)
         #print(stock.history(period='1d', interval='1m'))
         #current_price = stock.history(period='1d')['Close'][0]

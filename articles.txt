@@ -1,0 +1,182 @@
+[
+    {
+        "link": "https://seekingalpha.com/article/4473550-ishares-core-us-aggregate-bond-etf-low-risk-low-return?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 04:31:29 -0500",
+        "symbol": "AGG",
+        "title": "AGG ETF: Low Risk, Low Return"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473549-brown-forman-stock-not-much-upside?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 04:28:43 -0500",
+        "symbol": "BF.B",
+        "title": "Brown-Forman Does Not Have Much Upside"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473548-asana-earnings-stock-great-product-strong-results-poor-valuation?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 04:13:51 -0500",
+        "symbol": "ASAN",
+        "title": "Asana: Great Product, Strong Results, Poor Valuation"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473547-twitter-untapped-potential-risk-reward-neutral-watchlist?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 03:52:30 -0500",
+        "symbol": "TWTR",
+        "title": "Twitter Is Trying To Stick A Landing"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473546-ollies-bargain-outlet-earnings-stock-another-rough-quarter-in-q3?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 03:40:56 -0500",
+        "symbol": "OLLI",
+        "title": "Ollie's Bargain Outlet: Another Rough Quarter In Q3"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473545-alibaba-stock-benefiting-increased-consumption-digital-transformation?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 03:05:36 -0500",
+        "symbol": "AMZN",
+        "title": "Alibaba: Benefiting From Increased Consumption And The Digital Transformation"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473544-pick-etf-metals-mining-stocks-undervalued?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 02:49:51 -0500",
+        "symbol": "PICK",
+        "title": "PICK: Metals And Mining Stocks Are Undervalued"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473541-roundup-economic-data-supports-market-overvaluation-theory?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 02:31:44 -0500",
+        "symbol": "ACTV",
+        "title": "Roundup: Economic Data Supports Market Overvaluation Theory"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473543-backlogs-to-bottlenecks-rethinking-global-auto-supply-chains?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 01:58:00 -0500",
+        "symbol": "CARZ",
+        "title": "From Backlogs To Bottlenecks: Rethinking Global Auto Supply Chains"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473537-grinch-may-steal-santa-claus-rally-weighing-factors-trades?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 01:08:06 -0500",
+        "symbol": "ABNB",
+        "title": "The Grinch May Steal Our Santa Claus Rally, I Weigh The Factors And My Trades"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473536-fresh-del-monte-buy-at-0-64x-book-value?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 00:35:18 -0500",
+        "symbol": "FDP",
+        "title": "Fresh Del Monte Looks Ripe For The Picking At 0.64x Book Value"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473539-wobbly-world?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 00:30:00 -0500",
+        "symbol": "BABA",
+        "title": "A Wobbly World"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473534-all-facts-no-filler-solution-chinese-stock-problem?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 00:14:00 -0500",
+        "symbol": "BABA",
+        "title": "All Facts, No Filler: A Solution For The Chinese 'Stock' Problem (Maybe)"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473412-politics-and-the-markets-120621?source=feed_all_articles",
+        "published": "Mon, 06 Dec 2021 00:00:00 -0500",
+        "symbol": "None",
+        "title": "Politics And The Markets 12/06/21"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473533-hess-hes-undervalued-stock-buy?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 23:33:11 -0500",
+        "symbol": "HES",
+        "title": "Hess Is Undervalued By Mr. Market. Here's Why"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473532-vail-resorts-pricing-power-is-no-longer-epic?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 23:00:16 -0500",
+        "symbol": "MTN",
+        "title": "Vail Resorts: Pricing Power Is No Longer 'Epic'"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473531-amgen-stock-buy-before-everyone-else-does?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 22:55:07 -0500",
+        "symbol": "AMGN",
+        "title": "Buy Amgen Before Everyone Else Does"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473530-with-positive-fcf-in-2022-orbital-energys-stock-may-spike-up?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 22:39:37 -0500",
+        "symbol": "OEG",
+        "title": "With Positive FCF In 2022, Orbital Energy's Stock May Spike Up"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473529-sm-energy-stock-synthetically-buy-the-dip?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 22:39:22 -0500",
+        "symbol": "XOP",
+        "title": "Synthetically Buy The Dip In SM Energy"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473528-dan-loebs-third-point-portfolio-q3-2021-update?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 22:29:09 -0500",
+        "symbol": "ALIT",
+        "title": "Tracking Dan Loeb's Third Point Portfolio - Q3 2021 Update"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473527-digital-turbine-apps-better-buy-than-trade-desk-ttd?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 21:43:43 -0500",
+        "symbol": "APPS",
+        "title": "Why We Think Digital Turbine Is A Better Buy Than Trade Desk"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473525-vanguard-vde-simple-energy-index-etf-but-better-choices-out-there?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 21:08:47 -0500",
+        "symbol": "MLPX",
+        "title": "VDE: Simple Energy Index ETF, But Better Choices Out There"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473524-noc-a-defense-stock-to-buy-for-the-next-decade?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 21:05:32 -0500",
+        "symbol": "LMT",
+        "title": "Northrop Grumman: A Defense Stock To Buy For The Next Decade"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473522-ark-space-exploration-and-innovation-etf-why-i-am-avoiding-arkx?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 20:40:56 -0500",
+        "symbol": "ARKK",
+        "title": "Why I'm Avoiding The ARK Space Exploration & Innovation ETF"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473521-hochschild-acquires-amarillo-a-look-at-the-transaction?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 20:13:05 -0500",
+        "symbol": "HCHDF",
+        "title": "Hochschild Acquires Amarillo: A Look At The Transaction"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473519-xli-not-a-time-to-buy?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 19:30:49 -0500",
+        "symbol": "XLI",
+        "title": "XLI: Not A Time To Buy"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473517-clr-why-shale-industry-is-not-responsive-to-higher-oil-and-gas-prices?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 19:28:30 -0500",
+        "symbol": "CLR",
+        "title": "CLR Is An Example Of Why Shale Industry Is Not Responsive To Higher Oil & Gas Prices"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473516-the-repeating-tides-of-payroll-and-inflation?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 18:20:00 -0500",
+        "symbol": "ACTV",
+        "title": "The Repeating Tides Of Payroll And Inflation"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473515-dominos-pizza-international-growth-to-continue?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 17:43:24 -0500",
+        "symbol": "DPZ",
+        "title": "Domino's Pizza: International Growth To Continue"
+    },
+    {
+        "link": "https://seekingalpha.com/article/4473513-natural-gas-services-targets-margin-improvement?source=feed_all_articles",
+        "published": "Sun, 05 Dec 2021 16:45:45 -0500",
+        "symbol": "OIH",
+        "title": "Natural Gas Services Group Targets Margin Improvement"
+    }
+]

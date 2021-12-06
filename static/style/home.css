@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Dosis", sans-serif;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+/*Navbar Stuff*/
+
+.navbar {
+  margin-top: 30px;
+  margin: 30 px auto;
+  display: flex;
+  align-items: center;
+}
+
+ul {
+  flex: 1;
+  text-align: right;
+}
+
+ul li {
+  display: inline-block;
+  list-style: none;
+  margin: 0 25px;
+}
+
+ul li a {
+  text-decoration: none;
+  color: black;
+  padding: 0 10px;
+  position: relative;
+}
+
+ul li a:hover {
+  color: rgb(59, 197, 17);
+}
+
+/*Navbar Stuff End*/
+
+/*Banner Stuff*/
+
+.main {
+  display: flex;
+  margin-top: 30px;
+}
+
+.left-column,
+.right-column {
+  flex-basis: 50%;
+}
+
+.right-column img {
+  width: 100%;
+}
+
+.left-column {
+  background-color: rgb(53, 53, 53);
+}
+
+.left-column h1,
+h3,
+p {
+  margin: 10px;
+  color: white;
+}
+
+.left-column h1 {
+  margin-top: 100px;
+  font-size: 50px;
+}
+
+.left-column h3 {
+  font-size: 30px;
+}
+
+.left-column p {
+  font-size: 14px;
+  color: #999;
+  margin: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    flex-direction: column-reverse;
+  }
+  .lef-column,
+  .right-column {
+    width: 100%;
+  }
+}
+
+span {
+  color: rgb(59, 197, 17);
+}
+
+a {
+  color: rgb(59, 197, 17);
+  text-decoration: none;
+  padding: 0 10px;
+  position: relative;
+}
+/*Banner Stuff End*/
+
+/*Search Stuff*/
+.search-bar {
+  width: 45%;
+  display: flex;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #ddd;
+  margin: 10px 0 30px;
+}
+
+.search-bar input[type="search"] {
+  margin: 10px;
+  float: center;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+
+.search-bar button {
+  background-color: rgb(59, 197, 17); /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+.search-bar button:hover {
+  background-color: rgb(14, 163, 46);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}

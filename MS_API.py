@@ -1,12 +1,29 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_restful import Resource,Api,reqparse
 import pandas as pd
+import os
 import json
 import ast
 
-app=Flask(__name__)
-api = Api(app)
+# template_dir = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+# print(template_dir)
 
+app = Flask(__name__)
+api = Api(app)
+app.static_folder = 'static'
+
+@app.route('/home')
+@app.route('/')
+def home_page():
+    return render_template('home.html')
+
+@app.route('/display')
+def display_page():
+    return render_template('display.html')
+
+@app.route('/table')
+def table_page():
+    return render_template('table.html')
 
 class Users(Resource):
     def get(self):
@@ -31,4 +48,5 @@ api.add_resource(Users, '/users')  # '/users' is our entry point for Users
 api.add_resource(Locations, '/locations')  # and '/locations' is our entry point for Locations
 
 if __name__ == '__main__':
-    app.run()  # run our Flask app
+    #TODO: Delete debug in finalized stage!
+    app.run(debug=True)  # run our Flask app

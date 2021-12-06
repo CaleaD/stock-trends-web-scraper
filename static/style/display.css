@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Dosis", sans-serif;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+/*Navbar Stuff*/
+
+.navbar {
+  margin-top: 30px;
+  margin: 30 px auto;
+  display: flex;
+  align-items: center;
+}
+
+.navbar ul {
+  flex: 1;
+  text-align: right;
+}
+
+.navbar ul li {
+  display: inline-block;
+  list-style: none;
+  margin: 0 25px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: black;
+  padding: 0 10px;
+  position: relative;
+}
+
+.navbar ul li a:hover {
+  color: rgb(59, 197, 17);
+}
+
+/*Navbar Stuff End*/
+
+/*Banner Stuff*/
+
+.main {
+  display: flex;
+  margin-top: 30px;
+}
+
+.right-column,
+.left-column {
+  flex-basis: 50%;
+}
+
+.left-column img {
+  width: 100%;
+}
+
+.right-column {
+  background-color: rgb(53, 53, 53);
+}
+
+.right-column h1,
+h2,
+p {
+  margin: 50px;
+  color: white;
+}
+
+.right-column h1 {
+  margin-top: 100px;
+  font-size: 3rem;
+}
+
+.right-column h2 {
+  font-size: 1.5rem;
+}
+
+.right-column p {
+  font-size: 1rem;
+  color: #999;
+  margin: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    flex-direction: column-reverse;
+  }
+  .lef-column,
+  .right-column {
+    width: 100%;
+  }
+}
+/*Banner Stuff End*/
+
+.buttons ul {
+  flex: 1;
+  text-align: center;
+}
+
+.buttons ul li {
+  display: inline-block;
+  list-style: none;
+  margin: 0 25px;
+}
+
+span {
+  color: rgb(59, 197, 17);
+}
+
+button {
+  background-color: rgb(59, 197, 17); /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+button:hover {
+  background-color: rgb(14, 163, 46);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}
+
+.news {
+  background-color: rgb(53, 53, 53);
+}
+
+.news h1 {
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.news ul li a {
+  text-align: center;
+}
+
+#alt {
+  background-color: rgb(63, 63, 63);
+}
