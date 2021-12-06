@@ -72,6 +72,8 @@ class FinScraper:
     def scraper(self):
         '''
         :return: List with market data for a specific stock
+        format: Symbol, Price, Percentage, Close, DayRange, YearRange, MarketCap, Volume, P/ERatio, Divident, PrimaryExchange
+        format2: Symbol, Price, Percentage, PrimaryExchange, Divident, P/ERation, Volume, MarketCap, DayRange, YearRange, Close
         '''
         # df = pd.read_html(url)
 
@@ -105,7 +107,9 @@ class FinScraper:
         percentage = sp.find('div',{'class':'JwB6zf'}).text
         lst.append(percentage)
 
-        table_values = sp.findAll('div',{'class':'P6K39c'})
+        stop_at = sp.find(class_="IPIeJ")
+        table_values = stop_at.find_all_previous('div',{'class':'P6K39c'})
+        #table_values = sp.findAll('div',{'class':'P6K39c'})
 
         for val in table_values:
             lst.append(val.text.strip())

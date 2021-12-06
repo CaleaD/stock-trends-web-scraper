@@ -52,38 +52,69 @@ def scraper_lst(tickers):
         del scr
     return stocks
 
+def filter(user_input):
+    '''
+    :param user_input: can be in the form of a string 'SYMBOL' or 'SYMB1, SYMB2, SYMB3, ...'
+    :return: list if it is comma separated, otherwise the same
+    '''
+    if user_input.find(',')==-1:
+        print(user_input)
+        return user_input
+    else:
+        symbols = [x.strip() for x in user_input.split(',')]
+        return symbols
+
 if __name__ == '__main__':
     try:
+        #INPUT STOCKS
         ticker = "AAPL"
-        tickers = ["AAPL","SBUX","MSFT"]
+        tickers_str = "AAPL, SBUX, MSFT"
+        tickers = filter(tickers_str)
+        #tickers = input("Search for stocks (for multiple stocks separate by comma): ")
 
         ns = NewsScraper(ticker)
-        fs = FinScraper(ticker)
 
+        user_input = input("Search for stocks (for multiple stocks separate by comma): ")
+        filtered = filter(user_input)
 
         #NEWS DATA
+        print('---RSS SCRAPER---')
         articles = ns.scraper()
         print(articles)
         ns.save_to_json(articles)
         #ns.filter_json()
 
-        #print(fs.hist_data())
-        #print(fs.hist_data2())
-
         #FINANCIAL DATA
+
+        print('---FIN SCRAPER---')
         #TODO: See FinScraper class, method scraper
-        print(fs.scraper())
-        print(scraper_lst(tickers))
+
+        # print(fs.scraper())
+        # print(scraper_lst(tickers))
+
+        print("FILTERED DATA:",filtered)
+        if isinstance(filtered,list):
+            print(scraper_lst(filtered))
+        else:
+            print(FinScraper(filtered).scraper())
+            stock = yf.Ticker(filtered) # for plotting
+            print('Generating plots...\n')
+            print('RANGE PLOT TABLE\n')
+            plot_price_range(filtered,stock,'1mo')
+            print('\nDAY PRICE PLOT TABLE\n')
+            plot_price_day(filtered,stock)
+            print('\nDownloading historical data...\n')
+            data = FinScraper(filtered).hist_data2()
+            # print(FinScraper(filtered).hist_data())
+            print(data)
+            data.to_csv(f'hist_{filtered}.csv', index = None, header=True)
 
 
         #YFinance lib + plot testing
-        stock = yf.Ticker(ticker)
         #print(stock.history(period='1d', interval='1m'))
         #current_price = stock.history(period='1d')['Close'][0]
         #print(current_price)
-
-        #plot_price_range(ticker,stock,'1mo')
-        #plot_price_day(ticker,stock)
+        print('-----------------')
 
     except urllib.error.HTTPError:
         print("HTTP Error 404")
