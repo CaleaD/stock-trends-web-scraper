@@ -1,13 +1,13 @@
 from fin_scraper import FinScraper
 from rss_scraper import NewsScraper
-import requests
-from bs4 import BeautifulSoup
+import sqlite3
 import datetime
 import urllib
 import yfinance as yf
 import matplotlib.pyplot as plt
 
 
+''' PLOTTING FUNCTIONS'''
 def plot_multiple(tickers):
     '''
     Plots multiple stocks for today.
@@ -26,9 +26,6 @@ def plot_multiple(tickers):
     plt.legend()
     plt.savefig(f'Comparison_prices5y.png')
     plt.show()
-
-
-
 
 def plot_price_range(ticker, stock, range):
     '''
@@ -65,6 +62,8 @@ def plot_price_day(ticker, stock):
     plt.savefig(f'{ticker}_{datetime.date.today()}_prices.png')
     plt.show()
 
+
+''' MANAGE INPUT'''
 def scraper_lst(tickers):
     '''
     :return: Nested list with market data for multiple stocks
@@ -88,6 +87,34 @@ def filter(user_input):
     else:
         symbols = [x.strip() for x in user_input.split(',')]
         return symbols
+
+
+''' DATABASE '''
+conn = sqlite3.connect('metricshare.db')
+c = conn.cursor()
+c.execute('''CREATE TABLE IF NOT EXISTS stock(
+            Symbol TEXT,
+            Price REAL,
+            [Close] REAL,
+            MarketCap TEXT,
+            Volume INT, #Million
+            PER REAL,
+            Divident DECIMAL,
+            PrimaryEchange TEXT,
+            CDP CHAR,
+            CEO TEXT,
+            Founded DATE,
+            HQ TEXT,
+            Website TEXT,
+            DayMin REAL,
+            DayMax REAL,
+            YearMin REAL,
+            YearMax REAL,
+            )''')
+
+# def insert_to_db(data):
+#     c.execute('''INSERT INTO stock VALUES)''')
+
 
 if __name__ == '__main__':
     try:
@@ -118,7 +145,9 @@ if __name__ == '__main__':
 
         print("FILTERED DATA:",filtered)
         if isinstance(filtered,list):
-            print(scraper_lst(filtered))
+            data = scraper_lst(filtered)
+            print(data)
+            # insert_to_db(data)
             print('Generating plots...\n')
             plot_multiple(filtered)
         else:
