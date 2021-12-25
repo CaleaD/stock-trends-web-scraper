@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/style/home.css') }}">
+    <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+        <div class="container">
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div class="left-column">
+                    <h1>Stock <span>Market </span>Overview</h1>
+                    <h3>
+                        Search market data and analyse the performance of your<span> shares </span>and<span>
+                    investments </span>with the click of a button.
+                    </h3>
+                <div class="search-bar">
+                    <input
+                    type="search"
+                    placeholder="Search"
+                    id="site-search"
+                    name="q"
+                    aria-label="Search through site content"
+                    />
+                    <!--For design example, redirect to display page. Modify action later-->
+                    <form action="templates/display.html">
+                        <button type="submit">Enter</button>
+                    </form>
+                </div>
+                    <p>
+                        This site does not serve as a financial advise platform. It provides factual data and news which may or may not be objective but that belong to the author in question.
+                    </p>
+                </div>
+                <div class="right-column">
+                    <img src="{{ url_for('static', filename='/assets/stocks2.jpeg') }}" alt="stocks-image" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Boxes -->
+    <section class="bg-secondary text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md d-flex align-items-stretch">
+                    <div class="card bg-dark text-light">
+                        <div class="card-body text-center">
+                            <h1 mb-3>
+                                <i class="bi bi-bar-chart-line"></i>
+                            </h1>
+                            <h3 class="card-title mb-3">Graphs</h3>
+                            <p class="card-text">
+                                Be in tune with financial trends by following stock market prices aided by visual graphs.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md d-flex align-items-stretch">
+                    <div class="card bg-dark text-light">
+                        <div class="card-body text-center">
+                            <h1 mb-3>
+                                <i class="bi bi-newspaper"></i>
+                            </h1>
+                            <h3 class="card-title mb-3">News</h3>
+                            <p class="card-text">
+                                Read the newsfeed and stay on top of your favorite stocks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md d-flex align-items-stretch">
+                    <div class="card bg-dark text-light">
+                        <div class="card-body text-center">
+                            <h1 mb-3>
+                                <i class="bi bi-download"></i>
+                            </h1>
+                            <h3 class="card-title mb-3">Data</h3>
+                            <p class="card-text">
+                                Download the data you've searched and share it with others.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-white">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">© 2021 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap</a>,
+            <a class="text-white" href="https://www.google.com/finance/">GoogleFinance</a>,
+            <a class="text-white" href="https://finance.yahoo.com/">YahooFinance</a>,
+            <a class="text-white" href="https://seekingalpha.com/">SeekingAlpha</a>,
+            <a class="text-white" href="https://github.com/CaleaD">Github.com/CaleaD</a>
+        </div>
+    </footer>
+{% endblock %}
