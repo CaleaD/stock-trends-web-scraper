@@ -2,8 +2,30 @@
 
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/style/home.css') }}">
-    <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+    <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start" >
         <div class="container">
+            <!-- Handling Error Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category,msg in messages %}
+                    {% if category == 'error' %}
+                        <div class="alert alert-danger alter-dismissible fade show" role = "alert">
+                            {{ msg }}
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success alter-dismissible fade show" role = "alert">
+                            {{ msg }}
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
             <div class="d-sm-flex align-items-center justify-content-between">
                 <div class="left-column">
                     <h1>Stock <span>Market </span>Overview</h1>
@@ -11,25 +33,24 @@
                         Search market data and analyse the performance of your<span> shares </span>and<span>
                     investments </span>with the click of a button.
                     </h3>
-                <div class="search-bar">
-                    <input
-                    type="search"
-                    placeholder="Search"
-                    id="site-search"
-                    name="q"
-                    aria-label="Search through site content"
-                    />
-                    <!--For design example, redirect to display page. Modify action later-->
-                    <form action="templates/display.html">
+                <form method="POST">
+                    <div class="search-bar">
+                        <input
+                        type="search"
+                        placeholder="Search"
+                        id="site-search"
+                        name="user-query"
+                        aria-label="Search through site content"
+                        />
+                        <!--For design example, redirect to display page. Modify action later-->
                         <button type="submit">Enter</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
                     <p>
-                        This site does not serve as a financial advise platform. It provides factual data and news which may or may not be objective but that belong to the author in question.
-                    </p>
+                        This site does not serve as a financial advice platform. It provides factual data and news articles which may or may not be objective, but that belongs to the author in question. To search you will have to use the stock tickers rather than the actual stock name!</p>
                 </div>
                 <div class="right-column">
-                    <img src="{{ url_for('static', filename='/assets/stocks2.jpeg') }}" alt="stocks-image" />
+                    <img src="{{ url_for('static', filename='/assets/scraping.png') }}" alt="stocks-image" class="img-responsive1"/>
                 </div>
             </div>
         </div>

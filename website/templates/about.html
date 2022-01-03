@@ -2,6 +2,19 @@
 
 {% block content %}
 
-<h1>Stock <span>Market </span>Overview</h1>
-
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+<form method="POST">
+                    <div class="search-bar">
+                        <input
+                        type="search"
+                        placeholder="Search"
+                        id="site-search"
+                        name="user-query"
+                        aria-label="Search through site content"
+                        />
+                        <!--For design example, redirect to display page. Modify action later-->
+                        <button type="submit">Enter</button>
+                    </div>
+</form>
+</section>
 {% endblock %}
