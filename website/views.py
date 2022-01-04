@@ -7,7 +7,6 @@ views = Blueprint('views', __name__)
 
 @views.route('/',methods=['GET','POST'])
 def home():
-    #if request.method == "POST":
     data = request.form.get('user-query')
 
     #check if user-query (ticker) is in database/exists for scraping, if not tell it so
@@ -17,7 +16,8 @@ def home():
 
     # Error handling - flask has MESSAGE FLASHING, usage flash('sth here', category = 'error/success/etc')
     #data = request.form
-    #flash(data, category='success')
+    if data:
+        flash(data, category='success')
     print(data)
     return render_template("home.html")
 

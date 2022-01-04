@@ -2,7 +2,7 @@
 
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/style/home.css') }}">
-    <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start" >
+    <section class="text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start" style="background-image: url('../static/assets/stocks3.jpeg')">
         <div class="container">
             <!-- Handling Error Messages -->
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -26,7 +26,7 @@
                 {% endfor %}
             {% endif %}
             {% endwith %}
-            <div class="d-sm-flex align-items-center justify-content-between">
+            <div class="d-sm-flex align-items-center justify-content-between" style="background-color: rgba(0, 0, 0, 0.5);">
                 <div class="left-column">
                     <h1>Stock <span>Market </span>Overview</h1>
                     <h3>
@@ -94,7 +94,7 @@
                             </h1>
                             <h3 class="card-title mb-3">Data</h3>
                             <p class="card-text">
-                                Download the data you've searched and share it with others.
+                                Download the data we scraped for you and share it with others.
                             </p>
                         </div>
                     </div>
