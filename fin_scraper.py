@@ -6,6 +6,7 @@ import pandas as pd
 import time
 import datetime
 import requests
+import re
 
 class FinScraper:
     headers = {
@@ -17,7 +18,7 @@ class FinScraper:
     }
 
     def __init__(self, ticker):
-        self.ticker = ticker
+        self.ticker = ticker.upper()
 
     def set_tickers(self,tickers):
         self.__tickers = tickers
@@ -78,57 +79,37 @@ class FinScraper:
 
         #url = f"https://www.google.com/finance/quote/{self.ticker}:NASDAQ"
         url = f"https://www.google.com/finance?q={self.ticker}"
+        url_open = f"https://www.google.com/search?client=firefox-b-d&q={self.ticker}+stock+open"
         #url = f"http://finance.yahoo.com/quote/{self.ticker}/key-statistics?p={self.ticker}"
         #url = f"https://finance.yahoo.com/quote/{self.ticker}?p={self.ticker}"
 
         resp = requests.get(url, headers=self.headers, timeout=4).text
         sp = BeautifulSoup(resp, 'html.parser')
 
-        title = sp.title.text
-        result = sp.findAll('title')
 
-        lst = []
-        lst.append(self.ticker)
+        # Cleaning Up Scraped Results
 
-        # Live update of price
-        # for _ in range(100):
-        #     html = requests.get(f'https://www.google.com/search?q={self.ticker}+stock', headers=self.headers)
-        #     soup = BeautifulSoup(html.text, 'lxml')
-        #
-        #     print(soup.find('span',{'class':'IsqQVc NprOob wT3VGc'}).text)
-        #     time.sleep(20)
+        price = float(sp.find('div',{'class':'YMlKec fxKbKc'}).text.replace('$',''))
+        data = sp.find_all('div',{'class':'P6K39c'})[:5]
 
-        current_price = sp.find('div',{'class':'YMlKec fxKbKc'}).text
-        lst.append(current_price)
+        pattern = re.compile(r'[^\d.]+')
+        data = [item.text.replace('$','') for item in data]
 
-        # percentage = sp.find('div',{'class':'JwB6zf'}).text #pre-market
-        # lst.append(percentage)
-
-        #stop_at = sp.find(class_="IPIeJ")
-        #table_values = stop_at.find_all_previous('div',{'class':'P6K39c'})
-        table_values = sp.findAll('div',{'class':'P6K39c'})
-
-        for val in table_values:
-            lst.append(val.text)
-
-
-        # Values Clean-Up
-        #TODO: May be too many values, fix scraper to scrape fewer values
-        # To keep: Symbol, Price, Close, Volume, P/ERatio, Divident, PrimaryExchange, CEO, Founded, Website, [DayRange (min-max), YearRange(min-max)]
-        lst.pop()  # We don't want employees anymore
-        lst = [s.replace('$',"") for s in lst]
-        day_range = lst[3].split(' - ')
+        close = float(data[0])
+        day_range = data[1].split(' - ')
         day_range = [float(item) for item in day_range]
-        year_range = lst[4].split(' - ')
+        year_range = data[2].split(' - ')
         year_range = [float(item) for item in year_range]
-        lst.remove(lst[3])
-        lst.remove(lst[3])
+        market_cap = float(pattern.sub('',data[3]))
+        volume = float(pattern.sub('',data[4]))
+
+        resp = requests.get(url_open,headers=self.headers, timeout=4).text
+        sp = BeautifulSoup(resp, 'html.parser')
+
+        open = float(sp.find('td', {'class': 'iyjjgb'}).text.replace(',','.'))
+        lst = [self.ticker, price, open, close, market_cap, volume]
         lst.extend(day_range)
         lst.extend(year_range)
-        lst[4] = lst[4].replace("M","")
-        lst[6] = lst[6].replace("%","")
-        floatable = [1,2,4,5,6] # Price, Close, Vol, PER, Dividents
-        for i in floatable:
-            lst[i] = float(lst[i])
-        lst[10] = datetime.datetime.strptime(lst[10],"%b %d, %Y").strftime("%d-%m-%Y") # Founded
+        print(lst)
+
         return lst
