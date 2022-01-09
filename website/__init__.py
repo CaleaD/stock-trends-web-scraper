@@ -17,6 +17,7 @@ def create_app():
     #TODO: Secure cookies and session data - Remove in production!!
     app.config['SECRET_KEY'] = 'ThisIsMyKey'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # For the warning
     db.init_app(app)
 
     from .views import views

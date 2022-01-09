@@ -1,11 +1,12 @@
 '''
 Application blueprint, it stores all the paths to the pages the user will be able to navigate to.
 '''
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash,json
 from flask_sqlalchemy import SQLAlchemy
 from .models import Stock
 from fin_scraper import FinScraper
 from rss_scraper import NewsScraper
+import requests
 
 views = Blueprint('views', __name__)
 db = SQLAlchemy()
@@ -36,7 +37,7 @@ def home():
         else:
             exists = db.session.query(db.session.query(Stock).filter_by(symbol=filtered.upper()).exists()).scalar()
             if exists == True:
-                print("-- Getting data --")
+                print("--- (DB) : Selecting row with symbol and returning to user",filtered,"---")
                 #db.select().where(db.c.symbol == filtered.upper())
                 #TODO: Get from database!
                 pass
@@ -44,7 +45,7 @@ def home():
                 try:
                     result = FinScraper(filtered).scraper()
                     flash(result, category='success')
-                    print("-- Input has been scraped and result added to database --\n",result)
+                    print("--- (FIN SCRAPER) : Input has been scraped and result added to database ---\n",result)
                     #TODO: Add to database!
                 except:
                     flash("Invalid input, please try again. The input should be a stock ticker (e.g: APPL,SBUX,MSFT).", category='error')
@@ -64,4 +65,16 @@ def about():
 
 @views.route('/feed')
 def feed():
-    return render_template("feed.html")
+    # Generating json file
+    # ns = NewsScraper('ticker') #TODO: this is not how classes should work! Change it!
+    # print('--- RSS SCRAPER : Jsonifying scraped results ---')
+    # articles = ns.scraper()
+    # print(articles)
+    # ns.save_to_json(articles)
+    #
+    # with open('./articles.json', 'r') as file:
+    #     data = file.read()
+
+    #return render_template("feed.html",title="Feed",jsonfile=json.dumps(data))
+    data = json.load(open('./articles.json'))
+    return render_template('feed.html', data=data)

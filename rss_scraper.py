@@ -32,7 +32,7 @@ class NewsScraper:
         :param articles: list of articles, can be taken as result from scraper method
         :return: json/txt
         '''
-        with open('articles.txt', 'w') as file:
+        with open('articles.json', 'w') as file:
             json.dump(articles, file, sort_keys = True, indent = 4)
 
     def scraper(self):
