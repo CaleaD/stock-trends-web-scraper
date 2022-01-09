@@ -159,7 +159,7 @@ if __name__ == '__main__':
             print('\nDAY PRICE PLOT TABLE\n')
             plot_price_day(filtered,stock)
             print('\nDownloading historical data...\n')
-            data = FinScraper(filtered).hist_data2()
+            data = FinScraper(filtered).hist_data()
             # print(FinScraper(filtered).hist_data())
             print(data)
             data.to_csv(f'hist_{filtered}.csv', index = None, header=True)

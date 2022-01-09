@@ -4,9 +4,13 @@ Application blueprint, it stores all the paths to the pages the user will be abl
 from flask import Blueprint, render_template, request, flash,json
 from flask_sqlalchemy import SQLAlchemy
 from .models import Stock
+import pandas as pd
 from fin_scraper import FinScraper
 from rss_scraper import NewsScraper
-import requests
+import requests, io, base64, datetime
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import yfinance as yf
 
 views = Blueprint('views', __name__)
 db = SQLAlchemy()
@@ -23,10 +27,39 @@ def filter(user_input):
         symbols = [x.strip() for x in user_input.split(',')]
         return symbols
 
+
+def plot_price_day(ticker, stock):
+    '''
+    :param ticker: for format use
+    :param stock: the yahoo finance stock object
+    :return: Timeseries of today's market prices for a stock
+    '''
+    stock_dict = stock.history(period='1d',interval='1m')
+    print(stock_dict['Close'].head())
+    fig = plt.figure(figsize=(16, 8))
+    plt.plot(stock_dict['Close'], label='Close Price history', color="green")
+    plt.title(f"{ticker} Market Prices - Date : {datetime.date.today()}",fontsize=20)
+    plt.xlabel('Time')
+    plt.ylabel('Price')
+    plt.grid()
+    # plt.savefig(f'/static/images/{ticker}_{datetime.date.today()}_prices.png')
+    # Plot to png
+    pngImage = io.BytesIO()
+    FigureCanvas(fig).print_png(pngImage)
+    # Encode img to base64 string
+    png = "data:image/png;base64,"
+    png+= base64.b64encode(pngImage.getvalue()).decode('utf8')
+
+    return png
+
+
 @views.route('/',methods=['GET','POST'])
 def home():
+    #TODO: Delete saved images
     data = request.form.get('user-query')
-
+    result = None
+    image = None
+    csv = None
     #q = session.query(Stock.id).filter(Stock.symbol == data.upper())
     if data:
         filtered = filter(data)
@@ -35,29 +68,25 @@ def home():
             pass
             #TODO: Do it for multiple symbols!
         else:
-            exists = db.session.query(db.session.query(Stock).filter_by(symbol=filtered.upper()).exists()).scalar()
-            if exists == True:
-                print("--- (DB) : Selecting row with symbol and returning to user",filtered,"---")
-                #db.select().where(db.c.symbol == filtered.upper())
-                #TODO: Get from database!
-                pass
-            else:
-                try:
-                    result = FinScraper(filtered).scraper()
-                    flash(result, category='success')
-                    print("--- (FIN SCRAPER) : Input has been scraped and result added to database ---\n",result)
-                    #TODO: Add to database!
-                except:
-                    flash("Invalid input, please try again. The input should be a stock ticker (e.g: APPL,SBUX,MSFT).", category='error')
-
-    #check if user-query (ticker) is in database/exists for scraping, if not tell it so
-    # 1) if in database -> display
-    # 2) else if in scraper -> add scraped data to database
-    # 3) else -> not found
+            try:
+                fs = FinScraper(filtered)
+                result = fs.scraper()
+                print("--- (FIN SCRAPER) : Input has been scraped and result displayed ---\n",result)
+                stock = yf.Ticker(filtered)
+                image = plot_price_day(filtered, stock)
+                print("--- (TIME SERIES) : Plot has been generated ---\n")
+                history = fs.hist_data()
+                print(data)
+                history.to_csv(f'hist_{filtered}.csv', index = None, header=True)
+                print("--- (HISTORICAL DATA) : History saved to csv and sent to HTML ---\n")
+                flash("Success! See below for results.", category='success')
+                #TODO: Add to database + date!
+            except:
+                flash("Invalid input, please try again. The input should be a stock ticker (e.g: APPL,SBUX,MSFT).", category='error')
 
     # Error handling - flask has MESSAGE FLASHING, usage flash('sth here', category = 'error/success/etc')
     #data = request.form
-    return render_template("home.html")
+    return render_template("home.html",result = result,img = image)
 
 @views.route('/about')
 def about():

@@ -74,7 +74,7 @@ span {
   font-size: 17px;
 }
 
-.search-bar button {
+button {
   background-color: rgb(59, 197, 17); /* Green */
   border: none;
   color: white;
@@ -86,7 +86,7 @@ span {
   border-radius: 12px;
 }
 
-.search-bar button:hover {
+button:hover {
   background-color: rgb(14, 163, 46);
   cursor: pointer;
   transition: background-color 0.2s ease-in;

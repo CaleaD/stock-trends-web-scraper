@@ -55,8 +55,40 @@
             </div>
         </div>
     </section>
+
+    {% if result != None %}
+        <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center align-items-center text-sm-start">
+            <div class="d-sm-flex align-items-center justify-content-between">
+                {% if img != None %}
+                    <div class="left-column">
+                        <img class="img-fluid rounded float-left" src={{img}} alt="{{img}}" class="img-responsive1"/>
+                    </div>
+                {% else %}
+                    Image couldn't be displayed. :(
+                {% endif %}
+                <div class="right-column">
+                    <h1>Stock Data &bullet; <span>{{result[0]}}</span></h1>
+                    <h2>
+                        Market Status: <span> {{result[1]}} </span>
+                        <br />
+                        Current Price: <span>${{result[2]}}</span><br />
+                        Open Price: <span>${{result[3]}}</span><br />
+                        Close Price: <span>${{result[4]}}</span><br />
+                        Market Cap: <span>${{result[5]}}</span><br />
+                        Volume: <span>${{result[6]}}</span><br />
+                        Day Range: <span>${{result[7]}} - ${{result[8]}}</span><br />
+                        Year Range: <span>${{result[9]}} - ${{result[10]}}</span><br />
+                    </h2>
+                </div>
+            </div>
+            <div class="p-5">
+                <button type="submit">Download CSV</button>
+            </div>
+        </section>
+    {% endif %}
+
     <!-- Boxes -->
-    <section class="bg-secondary text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+    <section class="bg-secondary text-light p-1 p-lg-0 pt-lg-5 text-center text-sm-start">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md d-flex align-items-stretch">

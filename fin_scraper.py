@@ -40,7 +40,7 @@ class FinScraper:
             lst.append(row)
         print(lst)
 
-    def hist_data(self):
+    def hist_data_obj(self):
         '''
         First model of historical data scraping from yfinance. It uses range instead of specifying dates.
         :return: It returns a requests.Response object with all of the inquired historical data
@@ -57,7 +57,7 @@ class FinScraper:
         self.resp_to_list(resp)
         return resp
 
-    def hist_data2(self):
+    def hist_data(self):
         '''
         Second model of historical data scraping from yfinance. It uses dates.
         :return: It returns a pd.Dataframe object with all of the inquired historical data.
@@ -91,6 +91,7 @@ class FinScraper:
 
         price = float(sp.find('div',{'class':'YMlKec fxKbKc'}).text.replace('$',''))
         data = sp.find_all('div',{'class':'P6K39c'})[:5]
+        market_status = sp.find('div',{'class':'ygUjEc'}).text.partition(':')[0]
 
         pattern = re.compile(r'[^\d.]+')
         data = [item.text.replace('$','') for item in data]
@@ -101,15 +102,15 @@ class FinScraper:
         year_range = data[2].split(' - ')
         year_range = [float(item) for item in year_range]
         market_cap = float(pattern.sub('',data[3]))
-        volume = float(pattern.sub('',data[4]))
+        #volume = float(pattern.sub('',data[4]))
+        volume = data[4]
 
         resp = requests.get(url_open,headers=self.headers, timeout=4).text
         sp = BeautifulSoup(resp, 'html.parser')
 
         open = float(sp.find('td', {'class': 'iyjjgb'}).text.replace(',','.'))
-        lst = [self.ticker, price, open, close, market_cap, volume]
+        lst = [self.ticker, market_status, price, open, close, market_cap, volume]
         lst.extend(day_range)
         lst.extend(year_range)
-        print(lst)
 
         return lst
