@@ -2,19 +2,48 @@
 
 {% block content %}
 
-<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
-<form method="POST">
-                    <div class="search-bar">
-                        <input
-                        type="search"
-                        placeholder="Search"
-                        id="site-search"
-                        name="user-query"
-                        aria-label="Search through site content"
-                        />
-                        <!--For design example, redirect to display page. Modify action later-->
-                        <button type="submit">Enter</button>
-                    </div>
-</form>
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-justify text-sm-start">
+    <div class="container">
+         <h1 class="text-center">
+             <span>Quick Guide</span>
+        </h1>
+        <p>
+            On the main page, the search field awaits user input of no more than 200 characters. You can therefore
+        opt either for trends on a specific stock or for multiple. For one stock, the name or ticker of the stock
+        should be inserted in the field. For more than one stocks, a list separated by commas can be written
+        into the field. The input will not be recognized if it is anything else but a stock name/ticker or multiple stock/tickers separated by commas.
+        </p>
+        <p>
+            Once the search parameters have been set, by clicking the ”Enter” button, the page will display the queried data.
+        Either a table (or formatted data) has been displayed, along with plot.
+        The requested information can be available to download as CSV by pressing the ”Download” button
+        Data displayed will include day range, close and open price, volume and other specifics.
+        The feed tab, displays news relevant to trend stocks.
+        </p>
+        <p>
+            The main service featured by the application is the scraper tool which gathers data from other
+        web services in order to then get structured data to the client on his queried stocks. There are two
+        scrapers which have different properties. One which will get news from an RSS Feed on SeekingAlpha,
+        and another which collects a batch of stock market data from Yahoo Finance and Google Finance. The batch
+        will include stocks from chosen dates and will query specific stock tickers.
+        </p>
+        <p>
+            The plots will depend on queried data. If the someone queries multiple stocks, the plot will show a comparison
+        between prices in the last 5 years, each line marked by different colors. If someone queries only one stock, the plot
+        the plot will be relevant for that day's prices in a time series.
+        </p>
+        <p>
+            This web application displays and gathers information
+        on the Stock Market with the use of scraper tools. News about stock trends, as well as numerical
+        data, is parsed and display according to a predefined standard. Because stock investments can
+        put personal capital at risk, the application’s goal is to inform users of its dangers and benefits.
+        However, none of the collected data should serve as financial advice, and users should reach their
+        own conclusions when faced with factual data or public opinions.
+        </p>
+        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit ligula felis, ut maximus purus aliquam at. Fusce at dolor id velit porta ultrices sit amet a urna. Mauris id neque sapien. Nullam vel molestie nisl, in tincidunt risus. Vivamus sed lorem felis. Quisque pretium arcu et faucibus eleifend. Cras non justo viverra, venenatis enim et, laoreet nisl. Nulla facilisi. Phasellus ante magna, condimentum vel tempus vel, mattis vitae ipsum. Etiam nisl ante, fringilla et efficitur a, luctus vel nunc. Integer aliquam purus vitae turpis varius posuere.
+
+Mauris viverra sem quis tempor egestas. Integer posuere vel velit id tristique. Curabitur laoreet vehicula tortor at lobortis. Donec a lectus ac justo molestie interdum a eu odio. Quisque sit amet dui non lorem lobortis pretium aliquet at augue. In ut sollicitudin mauris. In nec nunc eros. Curabitur vel semper purus. Donec vehicula convallis nulla, nec ultrices turpis dignissim ut. Nam ornare risus et velit pulvinar, sit amet pretium neque eleifend. </p>
+    </div>
+
 </section>
 {% endblock %}

@@ -127,16 +127,14 @@ def home():
     #data = request.form
     return render_template("home.html",result = result,img = image,multiple=multiple)
 
-@views.route('/download-csv/<filename>')
-def download_csv(filename):
-    try:
-        return send_file(
-            'hist.csv',
-            mimetype='text/csv',
-            as_attachment=True
-        )
-    except FileNotFoundError:
-       abort(404)
+@views.route("/download")
+def download_csv():
+    return send_file(
+        "hist.csv",
+        mimetype='text/csv',
+        attachment_filename='hist.csv',
+        as_attachment=True)
+
 
 @views.route('/about')
 def about():

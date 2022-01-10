@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/style/home.css') }}">
     <section class="text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start" style="background-image: url('../static/assets/stocks3.jpeg')">
         <div class="container">
             <!-- Handling Error Messages -->
@@ -43,7 +42,7 @@
                         aria-label="Search through site content"
                         />
                         <!--For design example, redirect to display page. Modify action later-->
-                        <button type="submit">
+                        <button class="col-xs-12" type="submit">
                             Enter
                         </button>
                     </div>
@@ -114,9 +113,10 @@
                     </div>
                 </div>
                 <div class="p-2">
-                    <form method="GET" action='download-csv/hist.csv'>
-                        <button type="submit">Download CSV</button>
-                    </form>
+<!--                    <form method="GET" action='download-csv/hist.csv'>-->
+<!--                        <button type="submit">Download CSV</button>-->
+<!--                    </form>-->
+                    <a href="/download">Download CSV</a>
                 </div>
             </section>
         {% else %}
@@ -208,15 +208,4 @@
             </div>
         </div>
     </section>
-    <!-- Footer -->
-    <footer class="bg-dark text-center text-white">
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">© 2021 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap</a>,
-            <a class="text-white" href="https://www.google.com/finance/">GoogleFinance</a>,
-            <a class="text-white" href="https://finance.yahoo.com/">YahooFinance</a>,
-            <a class="text-white" href="https://seekingalpha.com/">SeekingAlpha</a>,
-            <a class="text-white" href="https://github.com/CaleaD">Github.com/CaleaD</a>
-        </div>
-    </footer>
 {% endblock %}
