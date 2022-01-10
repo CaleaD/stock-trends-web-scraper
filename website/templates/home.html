@@ -43,11 +43,13 @@
                         aria-label="Search through site content"
                         />
                         <!--For design example, redirect to display page. Modify action later-->
-                        <button type="submit">Enter</button>
+                        <button type="submit">
+                            Enter
+                        </button>
                     </div>
                 </form>
                     <p>
-                        This site does not serve as a financial advice platform. It provides factual data and news articles which may or may not be objective, but that belongs to the author in question. To search you will have to use the stock tickers rather than the actual stock name!</p>
+                        This site does not serve as a financial advice platform. It provides factual data and news articles which may or may not be objective, but that belongs to the author in question. </p>
                 </div>
                 <div class="right-column">
                     <img src="{{ url_for('static', filename='/assets/scraping.png') }}" alt="stocks-image" class="img-responsive1"/>
@@ -57,34 +59,106 @@
     </section>
 
     {% if result != None %}
-        <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center align-items-center text-sm-start">
-            <div class="d-sm-flex align-items-center justify-content-between">
-                {% if img != None %}
-                    <div class="left-column">
-                        <img class="img-fluid rounded float-left" src={{img}} alt="{{img}}" class="img-responsive1"/>
+        {% if multiple == False %}
+            <section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center align-items-center text-sm-start">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                        <div class="left-column">
+                            <img class="img-fluid rounded img-responsive1" src={{img}} alt="{{img}}"/>
+<!--                            <canvas id="myChart" width="400" height="400"></canvas>-->
+<!--                            <script>-->
+<!--                            const ctx = document.getElementById('myChart').getContext('2d');-->
+<!--                            const labels = Utils.months({count: 7});-->
+<!--                            const myChart = new Chart(ctx, {-->
+<!--                              labels: labels,-->
+<!--                              datasets: [{-->
+<!--                                label: 'My First Dataset',-->
+<!--                                data: [65, 59, 80, 81, 56, 55, 40],-->
+<!--                                backgroundColor: [-->
+<!--                                  'rgba(255, 99, 132, 0.2)',-->
+<!--                                  'rgba(255, 159, 64, 0.2)',-->
+<!--                                  'rgba(255, 205, 86, 0.2)',-->
+<!--                                  'rgba(75, 192, 192, 0.2)',-->
+<!--                                  'rgba(54, 162, 235, 0.2)',-->
+<!--                                  'rgba(153, 102, 255, 0.2)',-->
+<!--                                  'rgba(201, 203, 207, 0.2)'-->
+<!--                                ],-->
+<!--                                borderColor: [-->
+<!--                                  'rgb(255, 99, 132)',-->
+<!--                                  'rgb(255, 159, 64)',-->
+<!--                                  'rgb(255, 205, 86)',-->
+<!--                                  'rgb(75, 192, 192)',-->
+<!--                                  'rgb(54, 162, 235)',-->
+<!--                                  'rgb(153, 102, 255)',-->
+<!--                                  'rgb(201, 203, 207)'-->
+<!--                                ],-->
+<!--                                borderWidth: 1-->
+<!--                              }]-->
+<!--                            });-->
+<!--                            </script>-->
+                        </div>
+                    <div class="right-column">
+                        <h1>Stock Data &bullet; <span>{{result[7]}} ({{result[0]}})</span></h1>
+                        <h2>
+                            Market Status: <span> {{result[1]}} </span>
+                            <br />
+                            Current Price: <span>${{result[2]}}</span><br />
+                            Open Price: <span>${{result[3]}}</span><br />
+                            Close Price: <span>${{result[4]}}</span><br />
+                            Market Cap: <span>${{result[5]}}</span><br />
+                            Volume: <span>${{result[6]}}</span><br />
+                            Day Range: <span>${{result[8]}} - ${{result[9]}}</span><br />
+                            {% if result|length == 12%}
+                            Year Range: <span>${{result[10]}} - ${{result[11]}}</span><br />
+                            {% endif %}
+                        </h2>
                     </div>
-                {% else %}
-                    Image couldn't be displayed. :(
-                {% endif %}
-                <div class="right-column">
-                    <h1>Stock Data &bullet; <span>{{result[0]}}</span></h1>
-                    <h2>
-                        Market Status: <span> {{result[1]}} </span>
-                        <br />
-                        Current Price: <span>${{result[2]}}</span><br />
-                        Open Price: <span>${{result[3]}}</span><br />
-                        Close Price: <span>${{result[4]}}</span><br />
-                        Market Cap: <span>${{result[5]}}</span><br />
-                        Volume: <span>${{result[6]}}</span><br />
-                        Day Range: <span>${{result[7]}} - ${{result[8]}}</span><br />
-                        Year Range: <span>${{result[9]}} - ${{result[10]}}</span><br />
-                    </h2>
                 </div>
-            </div>
-            <div class="p-5">
-                <button type="submit">Download CSV</button>
-            </div>
-        </section>
+                <div class="p-2">
+                    <form method="GET" action='download-csv/hist.csv'>
+                        <button type="submit">Download CSV</button>
+                    </form>
+                </div>
+            </section>
+        {% else %}
+            <section class="bg-dark p-5 p-lg-0 pt-lg-5 text-center align-items-center text-sm-start">
+                    <div class="main">
+                        <table class="center">
+                            <thead>
+                                <tr>
+                                    <th>Stock Name</th>
+                                    <th>Ticker</th>
+                                    <th>Current Price</th>
+                                    <th>Open Price</th>
+                                    <th>Close Price</th>
+                                    <th>High</th>
+                                    <th>Low</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for stock in result %}
+                                <tr>
+                                    <td>{{stock[7]}}</td>
+                                    <td>{{stock[0]}}</td>
+                                    <td>${{stock[2]}}</td>
+                                    <td>${{stock[3]}}</td>
+                                    <td>${{stock[4]}}</td>
+                                    <td>${{stock[9]}}</td>
+                                    <td>${{stock[8]}}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>>
+                    </div>
+                    {% if img != None %}
+                        <div class="mx-auto p-5">
+                            <img class="img-fluid rounded img-responsive1 w-50 h-50" src={{img}} alt="{{img}}"/>
+                        </div>
+                    {% endif %}
+<!--                    <div class="p-2">-->
+<!--                        <button type="submit">Download CSV</button>-->
+<!--                    </div>-->
+            </section>
+        {% endif %}
     {% endif %}
 
     <!-- Boxes -->
