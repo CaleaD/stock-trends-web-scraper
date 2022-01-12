@@ -40,6 +40,7 @@
                         id="site-search"
                         name="user-query"
                         aria-label="Search through site content"
+                        maxlength="200"
                         />
                         <!--For design example, redirect to display page. Modify action later-->
                         <button class="col-xs-12" type="submit">
@@ -63,36 +64,29 @@
                 <div class="d-sm-flex align-items-center justify-content-between">
                         <div class="left-column">
                             <img class="img-fluid rounded img-responsive1" src={{img}} alt="{{img}}"/>
-<!--                            <canvas id="myChart" width="400" height="400"></canvas>-->
+<!--                            <canvas id="myChart" width="600" height="400"></canvas>-->
 <!--                            <script>-->
-<!--                            const ctx = document.getElementById('myChart').getContext('2d');-->
-<!--                            const labels = Utils.months({count: 7});-->
-<!--                            const myChart = new Chart(ctx, {-->
-<!--                              labels: labels,-->
-<!--                              datasets: [{-->
-<!--                                label: 'My First Dataset',-->
-<!--                                data: [65, 59, 80, 81, 56, 55, 40],-->
-<!--                                backgroundColor: [-->
-<!--                                  'rgba(255, 99, 132, 0.2)',-->
-<!--                                  'rgba(255, 159, 64, 0.2)',-->
-<!--                                  'rgba(255, 205, 86, 0.2)',-->
-<!--                                  'rgba(75, 192, 192, 0.2)',-->
-<!--                                  'rgba(54, 162, 235, 0.2)',-->
-<!--                                  'rgba(153, 102, 255, 0.2)',-->
-<!--                                  'rgba(201, 203, 207, 0.2)'-->
-<!--                                ],-->
-<!--                                borderColor: [-->
-<!--                                  'rgb(255, 99, 132)',-->
-<!--                                  'rgb(255, 159, 64)',-->
-<!--                                  'rgb(255, 205, 86)',-->
-<!--                                  'rgb(75, 192, 192)',-->
-<!--                                  'rgb(54, 162, 235)',-->
-<!--                                  'rgb(153, 102, 255)',-->
-<!--                                  'rgb(201, 203, 207)'-->
-<!--                                ],-->
-<!--                                borderWidth: 1-->
-<!--                              }]-->
-<!--                            });-->
+<!--                                var ctx = document.getElementById("myChart").getContext("2d");-->
+<!--                                var chart = new Chart(ctx, {-->
+<!--                                  type: "line",-->
+<!--                                  data: {-->
+<!--                                    labels: ['00:00','01:15', '02:00', '03:20', '04:00', '05:00',-->
+<!--                                        '06:00','07:00','08:00','09:00','10:00','11:00','12:00',-->
+<!--                                        '13:00','14:00','15:00','16:00','17:00','18:00','23:59'],-->
+<!--                                    datasets: [-->
+<!--                                      {-->
+<!--                                        label: "{{result[7]}} Prices Today",-->
+<!--                                        backgroundColor: "rgb(50, 199, 65)",-->
+<!--                                        borderColor: "rgba(99, 255, 132,1)",-->
+<!--                                        data: {{yaxis | safe}},-->
+<!--                                      }-->
+<!--                                    ]-->
+<!--                                  },-->
+<!--                                  options: {-->
+<!--                                    responsive:false,-->
+<!--                                    maintainAspectRatio: false-->
+<!--                                  }-->
+<!--                                });-->
 <!--                            </script>-->
                         </div>
                     <div class="right-column">

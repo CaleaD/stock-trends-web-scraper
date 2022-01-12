@@ -73,7 +73,7 @@ def plot_price_day(ticker, stock):
     :return: Timeseries of today's market prices for a stock
     '''
     stock_dict = stock.history(period='1d',interval='1m')
-    print(stock_dict['Close'].head())
+    #print(stock_dict['Close'].head())
 
     fig = plt.figure(figsize=(16, 8))
     plt.plot(stock_dict['Close'], label='Close Price history', color="green")
@@ -98,9 +98,9 @@ def home():
     result = None
     image = None
     multiple = True
+    yaxis = []
     if data:
         filtered = filter(data)
-        #Scraper Settings
         if isinstance(filtered, list):
             try:
                 multiple = True
@@ -116,10 +116,13 @@ def home():
                 fs = FinScraper(filtered)
                 result = fs.scraper()
                 print("--- (FIN SCRAPER) : Input has been scraped and result displayed ---\n",result)
-                stock = yf.Ticker(filtered)
+                stock = yf.Ticker(result[0])
+                # stock_dict = stock.history(period='1d', interval='1m')
+                # yaxis = stock_dict['Close'].bfill().tolist()
                 image = plot_price_day(filtered, stock)
                 print("--- (TIME SERIES) : Plot has been generated ---\n")
-                history = fs.hist_data(result[0])
+                #history = fs.hist_data(result[0])
+                history = stock.history(period='1d',interval='1m')
                 print(data)
                 history.to_csv(os.path.join(path, r'hist.csv'), index = None, header=True)
                 print("--- (HISTORICAL DATA) : History saved to csv and sent to HTML ---\n")
@@ -127,9 +130,7 @@ def home():
             except:
                 flash("Invalid input, please try again. The input should either be one stock ticker/name or multiple (separate them by commas).(e.g: APPL,SBUX,MSFT)", category='error')
 
-    # Error handling - flask has MESSAGE FLASHING, usage flash('sth here', category = 'error/success/etc')
-    #data = request.form
-    return render_template("home.html",result = result,img = image,multiple=multiple)
+    return render_template("home.html",result = result,img = image,multiple=multiple, yaxis=yaxis)
 
 @views.route("/download")
 def download_file():
@@ -146,16 +147,10 @@ def about():
 
 @views.route('/feed')
 def feed():
-    # Generating json file
-    ns = NewsScraper('ticker') #TODO: this is not how classes should work! Change it!
+    ns = NewsScraper('ticker')
     print('--- RSS SCRAPER : Jsonifying scraped results ---')
     articles = ns.scraper()
     print(articles)
     ns.save_to_json(articles)
-    #
-    # with open('./articles.json', 'r') as file:
-    #     data = file.read()
-    #
-    # #return render_template("feed.html",title="Feed",jsonfile=json.dumps(data))
     data = json.load(open('./articles.json'))
     return render_template('feed.html', data=data)

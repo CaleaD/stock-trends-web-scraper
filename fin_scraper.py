@@ -63,12 +63,15 @@ class FinScraper:
         :return: It returns a pd.Dataframe object with all of the inquired historical data.
         '''
         print(symbol)
-        period1 = int(time.mktime(datetime.datetime(2020, 12, 1, 23, 59).timetuple()))
-        period2 = int(time.mktime(datetime.datetime(2020, 12, 31, 23, 59).timetuple()))
+        today = datetime.datetime.today()
+        yesterday = today - datetime.timedelta(days=1)
+        period1 = int(time.mktime(yesterday.timetuple()))
+        period2 = int(time.mktime(today.timetuple()))
         interval = '1wk'
 
         hist_url = f"https://query1.finance.yahoo.com/v7/finance/download/{symbol}?period1={period1}&period2={period2}&interval={interval}&events=history&includeAdjustedClose=true"
         df = pd.read_csv(hist_url)
+        print(df.head())
         return df
 
     def scraper(self):
@@ -99,38 +102,42 @@ class FinScraper:
         pattern = re.compile(r'[^\d.]+')
         data = [item.text.replace('$','') for item in data]
         print(data)
-        # if(market_status!='Closed'):
-        close = float(data[0])
-        day_range = data[1].split(' - ')
-        day_range = [float(item) for item in day_range]
-        year_range = data[2].split(' - ')
-        year_range = [float(item) for item in year_range]
-        market_cap = float(pattern.sub('',data[3]))
-        volume = data[4]
+        if(market_status!='Closed'):
+            close = float(data[0])
+        else:
+            close = "Open"
 
-        resp = requests.get(url_open,headers=self.headers, timeout=4).text
-        sp = BeautifulSoup(resp, 'html.parser')
+        if market_status == 'Open':
+            day_range = data[1].split(' - ')
+            day_range = [float(item) for item in day_range]
+            year_range = data[2].split(' - ')
+            year_range = [float(item) for item in year_range]
+            market_cap = float(pattern.sub('',data[3]))
+            volume = data[4]
 
-        open = sp.find('td', {'class': 'iyjjgb'}).text.replace(',', '.')
-        if open!='-':
-            open = float(open)
-        lst = [symbol, market_status, price, open, close, market_cap, volume, name]
-        lst.extend(day_range)
-        lst.extend(year_range)
-        # else:
-        #     close = float(data[0])
-        #     year_range = data[1].split(' - ')
-        #     year_range = [float(item) for item in year_range]
-        #     market_cap = float(pattern.sub('', data[2]))
-        #     volume = data[3]
-        #
-        #     resp = requests.get(url_open, headers=self.headers, timeout=4).text
-        #     sp = BeautifulSoup(resp, 'html.parser')
-        #
-        #     open = sp.find('td', {'class': 'iyjjgb'}).text.replace(',', '.')
-        #     if open!='-':
-        #         open = float(open)
-        #     lst = [symbol, market_status, price, open, close, market_cap, volume, name]
-        #     lst.extend(year_range)
+            resp = requests.get(url_open,headers=self.headers, timeout=4).text
+            sp = BeautifulSoup(resp, 'html.parser')
+
+            open = sp.find('td', {'class': 'iyjjgb'}).text.replace(',', '.')
+            if open!='-':
+                open = float(open)
+            lst = [symbol, market_status, price, open, close, market_cap, volume, name]
+            lst.extend(day_range)
+            lst.extend(year_range)
+        else:
+            close = float(data[0])
+            year_range = data[1].split(' - ')
+            year_range = [float(item) for item in year_range]
+            market_cap = float(pattern.sub('', data[2]))
+            volume = data[3]
+
+            resp = requests.get(url_open, headers=self.headers, timeout=4).text
+            sp = BeautifulSoup(resp, 'html.parser')
+
+            open = sp.find('td', {'class': 'iyjjgb'}).text.replace(',', '.')
+            if open!='-':
+                open = float(open)
+            lst = [symbol, market_status, price, open, close, market_cap, volume, name]
+            lst.extend(year_range)
 
         return lst
