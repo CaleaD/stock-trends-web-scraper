@@ -11,9 +11,11 @@ import requests, io, base64, datetime
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import yfinance as yf
+import os
 
 views = Blueprint('views', __name__)
 db = SQLAlchemy()
+path = "C:\\Users\\dorac\\OneDrive\\Desktop\\Anul 3\\Web Technologies\\Scraper"
 
 def filter(user_input):
     '''
@@ -72,6 +74,7 @@ def plot_price_day(ticker, stock):
     '''
     stock_dict = stock.history(period='1d',interval='1m')
     print(stock_dict['Close'].head())
+
     fig = plt.figure(figsize=(16, 8))
     plt.plot(stock_dict['Close'], label='Close Price history', color="green")
     plt.title(f"{ticker.upper()} Market Prices - Date : {datetime.date.today()}",fontsize=20)
@@ -91,21 +94,22 @@ def plot_price_day(ticker, stock):
 
 @views.route('/',methods=['GET','POST'])
 def home():
-    #TODO: Delete saved images
     data = request.form.get('user-query')
     result = None
     image = None
     multiple = True
-    csv = None
-    #q = session.query(Stock.id).filter(Stock.symbol == data.upper())
     if data:
         filtered = filter(data)
         #Scraper Settings
         if isinstance(filtered, list):
-            multiple = True
-            result = scraper_lst(filtered)
-            print('--- (TIME SERIES) : Plot has been generated ---\n')
-            image = plot_multiple(filtered)
+            try:
+                multiple = True
+                result = scraper_lst(filtered)
+                print('--- (TIME SERIES) : Plot has been generated ---\n')
+                image = plot_multiple(filtered)
+                flash("Success! See below for results.", category='success')
+            except:
+                flash("Invalid input, please try again. The input should either be one stock ticker/name or multiple (separate them by commas).(e.g: APPL,SBUX,MSFT)", category='error')
         else:
             try:
                 multiple = False
@@ -117,20 +121,20 @@ def home():
                 print("--- (TIME SERIES) : Plot has been generated ---\n")
                 history = fs.hist_data(result[0])
                 print(data)
-                history.to_csv(f'hist.csv', index = None, header=True)
+                history.to_csv(os.path.join(path, r'hist.csv'), index = None, header=True)
                 print("--- (HISTORICAL DATA) : History saved to csv and sent to HTML ---\n")
                 flash("Success! See below for results.", category='success')
             except:
-                flash("Invalid input, please try again. The input should be a stock ticker (e.g: APPL,SBUX,MSFT).", category='error')
+                flash("Invalid input, please try again. The input should either be one stock ticker/name or multiple (separate them by commas).(e.g: APPL,SBUX,MSFT)", category='error')
 
     # Error handling - flask has MESSAGE FLASHING, usage flash('sth here', category = 'error/success/etc')
     #data = request.form
     return render_template("home.html",result = result,img = image,multiple=multiple)
 
 @views.route("/download")
-def download_csv():
+def download_file():
     return send_file(
-        "hist.csv",
+        os.path.join(path, r'hist.csv'),
         mimetype='text/csv',
         attachment_filename='hist.csv',
         as_attachment=True)

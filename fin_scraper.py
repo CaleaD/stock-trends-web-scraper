@@ -74,14 +74,11 @@ class FinScraper:
     def scraper(self):
         '''
         :return: List with market data for a specific stock
-        format: Symbol, Price, Close, MarketCap, Volume, P/ERatio, Divident, PrimaryExchange, CDP, CEO, Founded, HQ, Website, Employees, [DayRange (min-max), YearRange(min-max)]
+        format: symbol, market_status, price, open, close, market_cap, volume, name, day range(min, max), year range(min, max)
         '''
-        # df = pd.read_html(url)
-        #url = f"https://www.google.com/finance/quote/{self.ticker}:NASDAQ"
+
         url = f"https://www.google.com/finance?q={self.ticker}"
         url_open = f"https://www.google.com/search?client=firefox-b-d&q={self.ticker}+stock+open"
-        #url = f"http://finance.yahoo.com/quote/{self.ticker}/key-statistics?p={self.ticker}"
-        #url = f"https://finance.yahoo.com/quote/{self.ticker}?p={self.ticker}"
 
         resp = requests.get(url, headers=self.headers, timeout=4).text
         sp = BeautifulSoup(resp, 'html.parser')
@@ -102,40 +99,38 @@ class FinScraper:
         pattern = re.compile(r'[^\d.]+')
         data = [item.text.replace('$','') for item in data]
         print(data)
-        if(market_status!='Closed'):
-            close = float(data[0])
-            day_range = data[1].split(' - ')
-            day_range = [float(item) for item in day_range]
-            year_range = data[2].split(' - ')
-            year_range = [float(item) for item in year_range]
-            market_cap = float(pattern.sub('',data[3]))
-            #volume = float(pattern.sub('',data[4]))
-            volume = data[4]
+        # if(market_status!='Closed'):
+        close = float(data[0])
+        day_range = data[1].split(' - ')
+        day_range = [float(item) for item in day_range]
+        year_range = data[2].split(' - ')
+        year_range = [float(item) for item in year_range]
+        market_cap = float(pattern.sub('',data[3]))
+        volume = data[4]
 
-            resp = requests.get(url_open,headers=self.headers, timeout=4).text
-            sp = BeautifulSoup(resp, 'html.parser')
+        resp = requests.get(url_open,headers=self.headers, timeout=4).text
+        sp = BeautifulSoup(resp, 'html.parser')
 
-            open = sp.find('td', {'class': 'iyjjgb'}).text.replace(',', '.')
-            if open!='-':
-                open = float(open)
-            lst = [symbol, market_status, price, open, close, market_cap, volume, name]
-            lst.extend(day_range)
-            lst.extend(year_range)
-        else:
-            close = float(data[0])
-            year_range = data[1].split(' - ')
-            year_range = [float(item) for item in year_range]
-            market_cap = float(pattern.sub('', data[2]))
-            # volume = float(pattern.sub('',data[4]))
-            volume = data[3]
-
-            resp = requests.get(url_open, headers=self.headers, timeout=4).text
-            sp = BeautifulSoup(resp, 'html.parser')
-
-            open = sp.find('td', {'class': 'iyjjgb'}).text.replace(',', '.')
-            if open!='-':
-                open = float(open)
-            lst = [symbol, market_status, price, open, close, market_cap, volume, name]
-            lst.extend(year_range)
+        open = sp.find('td', {'class': 'iyjjgb'}).text.replace(',', '.')
+        if open!='-':
+            open = float(open)
+        lst = [symbol, market_status, price, open, close, market_cap, volume, name]
+        lst.extend(day_range)
+        lst.extend(year_range)
+        # else:
+        #     close = float(data[0])
+        #     year_range = data[1].split(' - ')
+        #     year_range = [float(item) for item in year_range]
+        #     market_cap = float(pattern.sub('', data[2]))
+        #     volume = data[3]
+        #
+        #     resp = requests.get(url_open, headers=self.headers, timeout=4).text
+        #     sp = BeautifulSoup(resp, 'html.parser')
+        #
+        #     open = sp.find('td', {'class': 'iyjjgb'}).text.replace(',', '.')
+        #     if open!='-':
+        #         open = float(open)
+        #     lst = [symbol, market_status, price, open, close, market_cap, volume, name]
+        #     lst.extend(year_range)
 
         return lst

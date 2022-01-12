@@ -113,10 +113,9 @@
                     </div>
                 </div>
                 <div class="p-2">
-<!--                    <form method="GET" action='download-csv/hist.csv'>-->
-<!--                        <button type="submit">Download CSV</button>-->
-<!--                    </form>-->
-                    <a href="/download">Download CSV</a>
+                    <form method="GET" action="{{url_for('views.download_file')}}">
+                        <button type="submit">Download CSV</button>
+                    </form>
                 </div>
             </section>
         {% else %}
